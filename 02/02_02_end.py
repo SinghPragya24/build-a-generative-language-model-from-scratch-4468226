@@ -1,4 +1,5 @@
-
+# Python code​​​​​​‌​‌‌​​​‌‌​‌​​‌​‌​‌​​​‌‌‌‌ below
+# Use print("messages...") to debug your solution.
 from string import punctuation
 from collections import Counter
 from collections import defaultdict
@@ -23,6 +24,7 @@ post_comments_with_labels = [
 class NaiveBayesClassifier:
     def __init__(self, samples):
         self.mapping = {"pos": [], "neg": []}
+        self.neg_mapping = defaultdict(lambda: 0)
         self.sample_count = len(samples)
         for text, label in samples:
             self.mapping[label] += self.tokenize(text)
@@ -43,18 +45,21 @@ class NaiveBayesClassifier:
         neg = []
 
         for token in tokens:
-            pos.append(self.pos_counter[token]/self.sample_count)
+            pos.append(self.pos_counter[token]/ self.sample_count)
             neg.append(self.neg_counter[token]/self.sample_count)
-            
-        
-        
 
-
+        # rerturn "neg", "pos" or "nutral"
+        if sum(pos) > sum(neg):
+            return "pos"
+        elif sum(neg) > sum(pos):
+            return "neg"
+        else:
+            print("neutral")
 
 cl = NaiveBayesClassifier(post_comments_with_labels)
 
-show_expected_result = False
-show_hints = False
+show_expected_result = True
+show_hints = True
 
 def get_sentiment(text):
     cl = NaiveBayesClassifier(post_comments_with_labels)
