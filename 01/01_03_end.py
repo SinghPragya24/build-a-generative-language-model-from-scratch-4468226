@@ -1,7 +1,11 @@
-
+# Python code​​​​​​‌​‌‌​​​‌‌​‌​​‌​​​‌‌‌‌​​​‌ below
+# Use print("messages...") to debug your solution.
 import random
 from string import punctuation
 from collections import defaultdict
+
+show_expected_result = False
+show_hints = False
 
 
 class MarkovChain:
@@ -18,10 +22,9 @@ class MarkovChain:
     def train(self, text):
         tokens = self._tokenize(text)
         for i, token in enumerate(tokens):
-            if (len(tokens) - 1)  == i:
+            if (len(tokens) - 1) == i:
                 break
             self.graph[token].append(tokens[i + 1])
-               
 
     def generate(self, prompt, length=10):
         # get the lask token from the prompt
@@ -34,7 +37,7 @@ class MarkovChain:
             if not options:
                 continue
             # use random.choice method to pick a current option
-            
+            current = random.choice(options)
             # add the random choice to the output string
-    
+            output+= f" {current}"
         return output
